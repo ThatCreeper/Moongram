@@ -22,3 +22,5 @@
 #include "state.h"
 #include "death.h"
 #include "render.h"
+#include "bot.h"
+#include "goober.h"

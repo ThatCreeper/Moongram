@@ -130,9 +130,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bot.cpp" />
     <ClCompile Include="death.cpp" />
     <ClCompile Include="gfx.cpp" />
     <ClCompile Include="globstate.cpp" />
+    <ClCompile Include="goober.cpp" />
     <ClCompile Include="render.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="state.cpp" />
@@ -141,10 +143,12 @@
     <ClCompile Include="ugame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bot.h" />
     <ClInclude Include="death.h" />
     <ClInclude Include="gfx.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="globstate.h" />
+    <ClInclude Include="goober.h" />
     <ClInclude Include="helpers.h" />
     <ClInclude Include="render.h" />
     <ClInclude Include="sound.h" />

@@ -6,29 +6,31 @@ struct Goober {
 	float angry_time = 0;
 };
 
+struct BotState {
+	float x = 0;
+	float y = 0;
+	float rot = -3 * PI / 4;
+	bool alive = true;
+	float respawn_timer = 0;
+	int batteries = 0;
+	float life = 1;
+	float bat_prog = 0;
+	float rep_prog = 0;
+};
+
 struct GameState {
-	struct {
-		float x = 0;
-		float y = 0;
-		float rot = -3 * PI / 4;
-		bool alive = true;
-		float respawn_timer = 0;
-		int batteries = 0;
-		float life = 1;
-		float bat_prog = 0;
-		float rep_prog = 0;
-	} bot;
-	struct {
+	BotState bot;
+	struct BrokenTileState {
 		int x = 0;
 		int y = 0;
 	} broken_tile;
-	struct {
+	struct PopupState {
 		bool bat_err = false;
 		bool danger = false;
 		bool flashing = false;
 		bool flash = false;
 	} popup;
-	struct {
+	struct ExplosionState {
 		float x = 0;
 		float y = 0;
 		float rem = 0;
