@@ -9,7 +9,7 @@
 static bool updated = false;
 
 void ProcessFlags(int sel) {
-	updated == 0 ? false : true;
+	updated = sel == 0 ? false : true;
 }
 
 bool PickFlags() {

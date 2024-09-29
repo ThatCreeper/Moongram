@@ -277,9 +277,12 @@ bool UpdatedRunGame() {
 
 			if (!state.bot.alive) {
 				DrawRectangle(0, 0, 800, 600, Fade(BLACK, 0.4f));
-				const char *t = TextFormat("Respawning in %0.1f", 3.f - state.bot.respawn_timer);
+				const char *t = "Summoning a new robot...";
 				int w = MeasureText(t, 50);
-				DrawText(t, (MAP_WIDTH - w) / 2, (MAP_HEIGHT - 50) / 2, 50, RED);
+				DrawText(t, (MAP_WIDTH - w) / 2, (MAP_HEIGHT) / 2 - 50, 50, RED);
+				t = TextFormat("Please wait %0.1f seconds", 3.f - state.bot.respawn_timer);
+				w = MeasureText(t, 50);
+				DrawText(t, (MAP_WIDTH - w) / 2, (MAP_HEIGHT) / 2, 50, RED);
 			}
 
 			EndTextureMode();
