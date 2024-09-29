@@ -89,9 +89,7 @@ void RenderMap(const GameState &state, RenderTexture2D map) {
 	EndTextureMode();
 }
 
-void RenderScreen(int &fadein, RenderTexture2D map) {
-	BeginDrawing();
-
+void RenderScreen(RenderTexture2D map) {
 	ClearBackground(GRAY);
 
 	DrawTextureRec(map.texture, { 0, 0, MAP_WIDTH, -MAP_HEIGHT }, { 25, 25 }, WHITE);
@@ -102,8 +100,4 @@ void RenderScreen(int &fadein, RenderTexture2D map) {
 	else {
 		DrawKeybindBar("[W] Forward", "");
 	}
-
-	DoFadeOutAnimation(fadein);
-
-	EndDrawing();
 }

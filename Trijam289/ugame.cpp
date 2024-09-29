@@ -36,7 +36,13 @@ bool UpdatedRunGame() {
 		state.bot.life = Clamp(state.bot.life, 0, 1);
 
 		RenderMap(state, map);
-		RenderScreen(fadein, map);
+
+		BeginDrawing();
+
+		RenderScreen(map);
+		DoFadeOutAnimation(fadein);
+
+		EndDrawing();
 	}
 
 END:
