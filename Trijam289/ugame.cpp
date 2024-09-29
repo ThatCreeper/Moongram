@@ -225,7 +225,7 @@ bool UpdatedRunGame() {
 
 			DrawLine3D({ state.bot.x, 0.5f, state.bot.y }, { state.bot.x + sinf(state.bot.rot), 0.5f, state.bot.y + cosf(state.bot.rot) }, RED);
 
-			DrawSphere({ state.bot.x, 0.5f, state.bot.y }, 0.5f, state.bot.alive ? GREEN : GRAY);
+			DrawSphere({ state.bot.x, 0.5f, state.bot.y }, 0.5f, state.bot.alive ? (IsPlayerHome(state) ? DARKGREEN : GREEN) : GRAY);
 
 			for (int i = 0; i < gooberc; i++) {
 				Goober &goober = goobers[i];
