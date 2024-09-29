@@ -2,7 +2,6 @@
 
 #include <cstdint>
 #include <cstdio>
-#include <cassert>
 
 // LittleBigPlanet serialization thing.
 // This will not be helpful, but I wanted it.
@@ -12,7 +11,7 @@
 
 enum : int32_t {
 	SR_INIT = 1,
-	SR_ADD_UPDATED = 2,
+	SR_ADD_UPDATED,
 
 	SR_LATEST_PLUS_ONE
 };
