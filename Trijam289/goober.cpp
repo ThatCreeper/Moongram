@@ -11,12 +11,22 @@ static void ProcessGooberAnger(GameState &state, Goober &goober) {
 	}
 }
 
+static bool DoesGooberPlayerVisionIntersectHomeBase(GameState &state, Goober &goober) {
+	float pxd = state.bot.x - goober.x;
+	float pyd = state.bot.y - goober.y;
+	float pd = sqrtf(pxd * pxd + pyd * pyd);
+	// { -1, -1.5f, 2, 3 }
+
+	RayCollision collision = GetRayCollisionBox({ { goober.x, 0, goober.y }, { pxd, 0, pyd } }, { { -1, -1, -1.5f }, { 1, 1, 1.5f } });
+	return collision.hit && collision.distance < pd;
+}
+
 static void ProcessGooberMovement(GameState &state, Goober &goober) {
 	float pxd = state.bot.x - goober.x;
 	float pyd = state.bot.y - goober.y;
 	float pd = sqrtf(pxd * pxd + pyd * pyd);
 	float hd = sqrtf(goober.x * goober.x + goober.y * goober.y);
-	if (goober.angry_time < 0 || !state.bot.alive || IsPlayerHome(state) || pd > 7 || (hd * 2 < pd && hd > 3.f)) {
+	if (goober.angry_time < 0 || !state.bot.alive || IsPlayerHome(state) || DoesGooberPlayerVisionIntersectHomeBase(state, goober) || pd > 7 || (hd * 2 < pd && hd > 3.f)) {
 		goober.x -= (goober.x / hd) * GetFrameTime() * 0.3f;
 		goober.y -= (goober.y / hd) * GetFrameTime() * 0.3f;
 	}
