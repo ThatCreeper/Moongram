@@ -56,7 +56,8 @@ inline void SerializeBinary(R & r, void *x, size_t s) {
 		assert(check == r.counter++); /* no-op when writing */ \
 	}
 
-#define SER_REV(r) if (r.IsWriting()) r.revision = SR_LATEST; SERIALIZE(r, r.revision)
+#define SER_REV(r) if (r.IsWriting()) r.revision = SR_LATEST; SERIALIZE(r, r.revision); assert(r.revision <= SR_LATEST)
 
 #define SERIALIZER(type) void Serialize(R &r, type &s)
 #define SERIALIZER_END
+#define DECL_SERIALIZER(type) SERIALIZER(type);

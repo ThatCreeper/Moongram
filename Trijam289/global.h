@@ -6,3 +6,4 @@
 #include "sound.h"
 #include "gfx.h"
 #include "helpers.h"
+#include "globstate.h"
