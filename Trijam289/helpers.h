@@ -13,3 +13,7 @@ inline float Dist(float ax, float ay, float bx, float by) {
 	float yd = ay - by;
 	return sqrtf(xd * xd + yd * yd);
 }
+
+inline float Dist(float x, float y) {
+	return sqrtf(x * x + y * y);
+}

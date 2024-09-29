@@ -12,7 +12,7 @@
 
 enum : int32_t {
 	SR_INIT = 1,
-
+	SR_ADD_UPDATED = 2,
 
 	SR_LATEST_PLUS_ONE
 };

@@ -1,4 +1,12 @@
-#include "global.h"
+#pragma once
+
+#include <raylib.h>
+#include <cmath>
+#include "version.h"
+#include "sound.h"
+#include "gfx.h"
+#include "helpers.h"
+#include "globstate.h"
 
 #define MAP_WIDTH (800 - 50)
 #define MAP_HEIGHT (600 - 50 - 30)

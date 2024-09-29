@@ -130,18 +130,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="death.cpp" />
     <ClCompile Include="gfx.cpp" />
     <ClCompile Include="globstate.cpp" />
     <ClCompile Include="sound.cpp" />
+    <ClCompile Include="state.cpp" />
     <ClCompile Include="Trijam289.cpp" />
     <ClCompile Include="TrijamVersion.cpp" />
+    <ClCompile Include="ugame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="death.h" />
     <ClInclude Include="gfx.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="globstate.h" />
     <ClInclude Include="helpers.h" />
     <ClInclude Include="sound.h" />
+    <ClInclude Include="state.h" />
     <ClInclude Include="version.h" />
     <ClInclude Include="version_debug.h" />
     <ClInclude Include="version_norm.h" />
