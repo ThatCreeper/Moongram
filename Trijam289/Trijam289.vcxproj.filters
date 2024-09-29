@@ -18,6 +18,12 @@
     <ClCompile Include="Trijam289.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TrijamVersion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h">
@@ -30,6 +36,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="version_debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

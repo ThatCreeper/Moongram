@@ -130,10 +130,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="sound.cpp" />
     <ClCompile Include="Trijam289.cpp" />
+    <ClCompile Include="TrijamVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
+    <ClInclude Include="sound.h" />
     <ClInclude Include="version.h" />
     <ClInclude Include="version_debug.h" />
     <ClInclude Include="version_norm.h" />
