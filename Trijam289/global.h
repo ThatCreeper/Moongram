@@ -12,6 +12,7 @@
 #define EXP_DUR 1.5f
 
 #include <raylib.h>
+#include <rlgl.h>
 #include <cmath>
 #include "version.h"
 #include "sound.h"

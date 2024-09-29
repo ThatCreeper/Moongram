@@ -36,3 +36,10 @@ float BotBrokenTileDist(const GameState &state) {
 bool IsBotOnBrokenTile(const GameState &state) {
 	return BotBrokenTileDist(state) < 1.f;
 }
+
+void PlayExplosion(GameState &state, float x, float y) {
+	PlaySound(SND_EXPLOSION);
+	state.explosion.rem = EXP_DUR;
+	state.explosion.x = x;
+	state.explosion.y = y;
+}

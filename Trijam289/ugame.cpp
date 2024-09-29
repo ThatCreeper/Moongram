@@ -118,6 +118,7 @@ bool UpdatedRunGame() {
 			}
 			if (pd < 0.7f) {
 				state.bot.alive = false;
+				PlayExplosion(state, state.bot.x, state.bot.y);
 				SpawnGoober(goober);
 				PlaySound(SND_DIE);
 			}
@@ -233,7 +234,11 @@ bool UpdatedRunGame() {
 			}
 
 			if (state.explosion.rem > 0) {
-				DrawSphere({ state.explosion.x, 0.5f, state.explosion.y }, 0.6f, Fade(ORANGE, 0.3f * (state.explosion.rem / EXP_DUR)));
+				float ern = state.explosion.rem / EXP_DUR;
+				rlDisableDepthMask();
+				DrawSphere({ state.explosion.x, 0.5f, state.explosion.y }, 0.4f + (1 - ern), Fade(WHITE, 0.3f * ern));
+				DrawSphere({ state.explosion.x, 0.5f, state.explosion.y }, 0.8f, Fade(ORANGE, 0.3f * ern));
+				rlEnableDepthMask();
 			}
 
 			EndMode3D();

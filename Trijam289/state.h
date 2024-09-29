@@ -44,3 +44,4 @@ void SpawnGoober(Goober &goober);
 void ChooseBrokenTile(GameState &state);
 float BotBrokenTileDist(const GameState &state);
 bool IsBotOnBrokenTile(const GameState &state);
+void PlayExplosion(GameState &state, float x, float y);
