@@ -133,6 +133,7 @@
     <ClCompile Include="death.cpp" />
     <ClCompile Include="gfx.cpp" />
     <ClCompile Include="globstate.cpp" />
+    <ClCompile Include="render.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="state.cpp" />
     <ClCompile Include="Trijam289.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="global.h" />
     <ClInclude Include="globstate.h" />
     <ClInclude Include="helpers.h" />
+    <ClInclude Include="render.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="state.h" />
     <ClInclude Include="version.h" />

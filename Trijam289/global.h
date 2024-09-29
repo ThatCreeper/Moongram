@@ -21,3 +21,4 @@
 #include "globstate.h"
 #include "state.h"
 #include "death.h"
+#include "render.h"
