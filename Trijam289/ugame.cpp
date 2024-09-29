@@ -2,12 +2,10 @@
 
 bool UpdatedRunGame() {
 	int fadein = 0;
-	GameState state;
+	GameState state{};
 	RenderTexture2D map = LoadRenderTexture(MAP_WIDTH, MAP_HEIGHT);
-	Goober goobers[GOOBER_COUNT];
-	int gooberc = GOOBER_INIT_COUNT;
 
-	for (Goober &goober : goobers) {
+	for (Goober &goober : state.goobers) {
 		SpawnGoober(goober);
 	}
 	ChooseBrokenTile(state);
@@ -92,8 +90,8 @@ bool UpdatedRunGame() {
 		state.popup.danger = false;
 		state.popup.flash = !state.popup.flash;
 		state.popup.flashing = false;
-		for (int i = 0; i < gooberc; i++) {
-			Goober &goober = goobers[i];
+		for (int i = 0; i < state.gooberc; i++) {
+			Goober &goober = state.goobers[i];
 			goober.angry_time -= GetFrameTime();
 			float cdist = goober.angry_time > 0 ? 6 : 4;
 			if (Dist(state.bot.x, state.bot.y, goober.x, goober.y) < cdist) {
@@ -181,7 +179,7 @@ bool UpdatedRunGame() {
 
 				if (state.rep_tiles % 5 == 0) {
 					PlaySound(SND_COMBO);
-					gooberc = Clamp(gooberc + 1, GOOBER_INIT_COUNT, GOOBER_COUNT);
+					state.gooberc = Clamp(state.gooberc + 1, GOOBER_INIT_COUNT, GOOBER_COUNT);
 				}
 				else {
 					PlaySound(SND_REPAIR);
@@ -228,8 +226,8 @@ bool UpdatedRunGame() {
 
 			DrawSphere({ state.bot.x, 0.5f, state.bot.y }, 0.5f, state.bot.alive ? (IsPlayerHome(state) ? DARKGREEN : GREEN) : GRAY);
 
-			for (int i = 0; i < gooberc; i++) {
-				Goober &goober = goobers[i];
+			for (int i = 0; i < state.gooberc; i++) {
+				Goober &goober = state.goobers[i];
 				DrawSphere({ goober.x, 0.5f, goober.y }, 0.4f, goober.angry_time > 0 ? RED : DARKGRAY);
 			}
 
