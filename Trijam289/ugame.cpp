@@ -181,7 +181,7 @@ bool UpdatedRunGame() {
 
 				if (state.rep_tiles % 5 == 0) {
 					PlaySound(SND_COMBO);
-					gooberc++;
+					gooberc = Clamp(gooberc + 1, GOOBER_INIT_COUNT, GOOBER_COUNT);
 				}
 				else {
 					PlaySound(SND_REPAIR);
