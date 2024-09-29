@@ -6,15 +6,6 @@
 // #define FORCE_EDITION 0
 #endif
 
-void DrawKeybindBar(const char *left, const char *right, bool bg = true) {
-	if (bg)
-		DrawRectangle(0, 600 - 30, 800, 30, Fade(BLACK, 0.7f));
-	DrawLine(0, 600 - 31, 800, 600 - 31, WHITE); // I dislike the number "31" here, but it is correct. Sad.
-	DrawText(left, 10, 600 - 25, 20, WHITE);
-	int rlen = MeasureText(right, 20);
-	DrawText(right, 800 - 10 - rlen, 600 - 25, 20, WHITE);
-}
-
 void ProcessFlags(int sel) {
 	// nothing yet
 }
@@ -172,12 +163,6 @@ bool GooberHomeHome(const Goober &goober) {
 	return CheckCollisionRecs({ -1, -1.5f, 2, 3 }, { goober.x - 0.4f, goober.y - 0.4f, 0.8f, 0.8f });
 }
 
-float Dist(float ax, float ay, float bx, float by) {
-	float xd = ax - bx;
-	float yd = ay - by;
-	return sqrtf(xd * xd + yd * yd);
-}
-
 void SpawnGoober(Goober &goober) {
 	int srad = GAME_SIZE * 1.25;
 
@@ -245,14 +230,6 @@ bool DisplayDeath(const GameState &state) {
 	}
 
 	return false;
-}
-
-float Clamp(float x, float min, float max) {
-	if (x < min)
-		return min;
-	if (x > max)
-		return max;
-	return x;
 }
 
 bool RunGame() {
