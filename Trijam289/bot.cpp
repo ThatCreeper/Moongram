@@ -98,4 +98,6 @@ void UpdateTimers(GameState &state) {
 			state.bot.life = 1;
 		}
 	}
+
+	state.explosion.rem -= GetFrameTime();
 }
