@@ -295,7 +295,12 @@ bool UpdatedRunGame() {
 
 		DrawTextureRec(map.texture, { 0, 0, MAP_WIDTH, -MAP_HEIGHT }, { 25, 25 }, WHITE);
 
-		DrawKeybindBar("[W] Forward [A]/[D] Rotate", "");
+		if (IsKeyDown(KEY_W)) {
+			DrawKeybindBar("[W] Forward [A]/[D] Rotate", "");
+		}
+		else {
+			DrawKeybindBar("[W] Forward", "");
+		}
 
 		DoFadeOutAnimation(fadein);
 
