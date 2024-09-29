@@ -20,7 +20,7 @@ bool DisplayDeath(const GameState &state) {
 		const char *s = "Your home base has been infiltrated!";
 		int m = MeasureText(s, 30);
 		DrawText(s, (800 - m) / 2, (600 - 60) / 2, 30, WHITE);
-		s = TextFormat("Before that, you repaired %d tiles", state.rep_tiles);
+		s = TextFormat("Before that, you repaired %d %s", state.rep_tiles, state.rep_tiles == 1 ? "tile" : "tiles");
 		m = MeasureText(s, 30);
 		DrawText(s, (800 - m) / 2, (600) / 2, 30, WHITE);
 		if (state.rep_tiles > globstate.hscore_up) {
