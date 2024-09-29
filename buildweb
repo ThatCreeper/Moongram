@@ -1,0 +1,1 @@
+emcc -o ..\outhtml\index.js Trijam289.cpp -Os ..\..\..\..\code\raylib\src\libraylib.a -I. -I..\..\..\..\code\raylib\src -L. -L..\..\..\..\code\raylib\src\libraylib.a -s USE_GLFW=3 -s ASYNCIFY -DPLATFORM_WEB --preload-file ..\run\snd@/snd

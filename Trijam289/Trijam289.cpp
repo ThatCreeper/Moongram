@@ -214,6 +214,15 @@ SERIALIZER(GlobState) {
 	ADD(SR_INIT, hscore);
 } SERIALIZER_END
 
+void SaveGlobState() {
+	R r = RWrite("save.dat");
+	if (r.file) {
+		SER_REV(r);
+		SERIALIZE(r, globstate);
+	}
+	RClose(r);
+}
+
 struct GameState {
 	float bot_x = 0;
 	float bot_y = 0;
@@ -465,7 +474,7 @@ bool RunGame() {
 					goto RESTART;
 				}
 				else {
-					return false;
+					goto END;
 				}
 			}
 		}
@@ -631,13 +640,16 @@ bool RunGame() {
 		EndDrawing();
 	}
 
+END:
 	if (state.rep_tiles > globstate.hscore)
 		globstate.hscore = state.rep_tiles;
+	SaveGlobState();
 
 	return false;
 RESTART:
 	if (state.rep_tiles > globstate.hscore)
 		globstate.hscore = state.rep_tiles;
+	SaveGlobState();
 
 	UnloadRenderTexture(map);
 
@@ -668,13 +680,4 @@ int main() {
 
 END:
 	CloseWindow();
-
-	{
-		R r = RWrite("save.dat");
-		if (r.file) {
-			SER_REV(r);
-			SERIALIZE(r, globstate);
-		}
-		RClose(r);
-	}
 }
