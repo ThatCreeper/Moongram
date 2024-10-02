@@ -34,6 +34,11 @@ struct GameState {
 	int gooberc = GOOBER_INIT_COUNT;
 };
 
+struct GameFlags {
+	bool unused = false;
+};
+extern GameFlags gameflags;
+
 bool IsPlayerHome(const BotState &bot);
 bool IsGooberHome(const Goober &goober);
 void ChooseBrokenTile(GameState &state);

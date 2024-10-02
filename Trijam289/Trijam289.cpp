@@ -7,6 +7,7 @@
 #endif
 
 static bool updated = false;
+GameFlags gameflags{};
 
 void ProcessFlags(int sel) {
 	updated = sel == 0 ? false : true;
