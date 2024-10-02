@@ -1,28 +1,33 @@
 #include "global.h"
 
 void MoveBotAndDrainLife(BotState &bot) {
-	if (bot.alive) {
-		if (IsKeyDown(KEY_W)) {
-			if (bot.rep_prog > 0) {
-				bot.rep_prog = 0;
-				StopSound(SND_PROGRESS1);
-			}
-			float dec = 0.0005f;
-			if (IsKeyDown(KEY_A)) {
-				bot.rot += 2.f * GetFrameTime();
-				dec = 0.0007f;
-			}
-			if (IsKeyDown(KEY_D)) {
-				bot.rot -= 2.f * GetFrameTime();
-				dec = 0.0007f;
-			}
-			bot.x += sinf(bot.rot) * GetFrameTime() * 5.f;
-			bot.y += cosf(bot.rot) * GetFrameTime() * 5.f;
-			bot.life -= dec;
-		}
+	if (!bot.alive)
+		return;
 
-		bot.life -= 0.0003f;
+	bool forward = IsKeyDown(KEY_W);
+	bool backward = IsKeyDown(KEY_S);
+
+	if (forward ^ backward) {
+		float dec = 0.0005f;
+		float mult = backward ? -0.4f : 1;
+		if (bot.rep_prog > 0) {
+			bot.rep_prog = 0;
+			StopSound(SND_PROGRESS1);
+		}
+		if (IsKeyDown(KEY_A)) {
+			bot.rot += 2.f * GetFrameTime();
+			dec = 0.0007f;
+		}
+		if (IsKeyDown(KEY_D)) {
+			bot.rot -= 2.f * GetFrameTime();
+			dec = 0.0007f;
+		}
+		bot.x += sinf(bot.rot) * GetFrameTime() * 5.f * mult;
+		bot.y += cosf(bot.rot) * GetFrameTime() * 5.f * mult;
+		bot.life -= dec;
 	}
+
+	bot.life -= 0.0003f;
 }
 
 void ClipBot(BotState &bot) {
