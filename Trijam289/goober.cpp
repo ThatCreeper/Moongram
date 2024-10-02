@@ -51,6 +51,18 @@ static void ProcessGooberMovement(GameState &state, Goober &goober) {
 	}
 }
 
+void SpawnGoober(Goober &goober) {
+	int srad = GAME_SIZE * 1.25;
+
+	goober.x = GetRandomValue(-srad, srad);
+	goober.y = GetRandomValue(-srad, srad);
+	goober.angry_time = 0;
+
+	if (goober.x * goober.x + goober.y * goober.y < 15) {
+		SpawnGoober(goober);
+	}
+}
+
 bool UpdateGoobers(GameState &state) {
 	bool wasdanger = state.popup.danger;
 	state.popup.danger = false;

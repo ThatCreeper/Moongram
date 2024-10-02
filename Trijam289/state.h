@@ -42,7 +42,6 @@ struct GameState {
 
 bool IsPlayerHome(const GameState &state);
 bool IsGooberHome(const Goober &goober);
-void SpawnGoober(Goober &goober);
 void ChooseBrokenTile(GameState &state);
 float BotBrokenTileDist(const GameState &state);
 bool IsBotOnBrokenTile(const GameState &state);
