@@ -15,15 +15,27 @@ void MoveBotAndDrainLife(BotState &bot) {
 			StopSound(SND_PROGRESS1);
 		}
 		if (IsKeyDown(KEY_A)) {
-			bot.rot += 2.f * GetFrameTime();
+			bot.rot += 2.f * GetFrameTime() * mult;
 			dec = 0.0007f;
 		}
 		if (IsKeyDown(KEY_D)) {
-			bot.rot -= 2.f * GetFrameTime();
+			bot.rot -= 2.f * GetFrameTime() * mult;
 			dec = 0.0007f;
 		}
 		bot.x += sinf(bot.rot) * GetFrameTime() * 5.f * mult;
 		bot.y += cosf(bot.rot) * GetFrameTime() * 5.f * mult;
+		bot.life -= dec;
+	}
+	else {
+		float dec = 0;
+		if (IsKeyDown(KEY_A)) {
+			bot.rot += 2.f * GetFrameTime();
+			dec = 0.0004f;
+		}
+		if (IsKeyDown(KEY_D)) {
+			bot.rot -= 2.f * GetFrameTime();
+			dec = 0.0004f;
+		}
 		bot.life -= dec;
 	}
 
