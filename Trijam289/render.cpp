@@ -26,7 +26,19 @@ void RenderMap(const GameState &state, RenderTexture2D map) {
 
 	for (int i = 0; i < state.gooberc; i++) {
 		const Goober &goober = state.goobers[i];
-		DrawSphere({ goober.x, 0.5f, goober.y }, 0.4f, goober.angry_time > 0 ? RED : DARKGRAY);
+		// Animate from old to new, kinda
+		if (goober.dead) {
+			float x = SInterp(goober.o_x, goober.x, goober.anim_time, GOOBER_TRANSITION);
+			float y = SInterp(goober.o_y, goober.y, goober.anim_time, GOOBER_TRANSITION);
+			float mx = sin(goober.anim_time * 2.3f);
+			float my = sin(goober.anim_time * 2.5f + 0.3f);
+			float mz = sin(goober.anim_time * 2.1f + 0.2f);
+
+			DrawSphere({ x + mx, 0.5f + my, y + mz }, 0.1f, Fade(DARKGRAY, 0.3f));
+		}
+		else {
+			DrawSphere({ goober.x, 0.5f, goober.y }, 0.4f, goober.angry_time > 0 ? RED : DARKGRAY);
+		}
 	}
 
 	if (state.explosion.rem > 0) {

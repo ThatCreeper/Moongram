@@ -1,11 +1,5 @@
 #pragma once
 
-struct Goober {
-	float x;
-	float y;
-	float angry_time = 0;
-};
-
 struct BotState {
 	float x = 0;
 	float y = 0;
@@ -36,7 +30,7 @@ struct GameState {
 		float rem = 0;
 	} explosion;
 	int rep_tiles = 0;
-	Goober goobers[GOOBER_COUNT];
+	Goober goobers[GOOBER_COUNT]{};
 	int gooberc = GOOBER_INIT_COUNT;
 };
 

@@ -29,3 +29,19 @@ inline float Dist(float ax, float ay, float bx, float by) {
 inline float Dist(float x, float y) {
 	return sqrtf(x * x + y * y);
 }
+
+// X from 0 to 1
+inline float SInterp(float x) {
+	return (1 - cosf(PI * x)) / 2;
+}
+
+inline float SInterp(float x, float max) {
+	return SInterp(x / max);
+}
+
+inline float SInterp(float from, float to, float x, float max) {
+	float i = SInterp(x, max);
+	from *= 1 - i;
+	to   *= i;
+	return from + to;
+}
