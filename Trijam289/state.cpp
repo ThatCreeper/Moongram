@@ -1,7 +1,7 @@
 #include "global.h"
 
-bool IsPlayerHome(const GameState &state) {
-	return CheckCollisionRecs({ -1, -1.5f, 2, 3 }, { state.bot.x - 0.5f, state.bot.y - 0.5f, 1, 1 });
+bool IsPlayerHome(const BotState &bot) {
+	return CheckCollisionRecs({ -1, -1.5f, 2, 3 }, { bot.x - 0.5f, bot.y - 0.5f, 1, 1 });
 }
 
 bool IsGooberHome(const Goober &goober) {

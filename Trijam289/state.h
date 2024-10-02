@@ -34,7 +34,7 @@ struct GameState {
 	int gooberc = GOOBER_INIT_COUNT;
 };
 
-bool IsPlayerHome(const GameState &state);
+bool IsPlayerHome(const BotState &bot);
 bool IsGooberHome(const Goober &goober);
 void ChooseBrokenTile(GameState &state);
 float BotBrokenTileDist(const GameState &state);

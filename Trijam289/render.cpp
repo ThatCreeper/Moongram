@@ -18,11 +18,11 @@ void RenderMap(const GameState &state, RenderTexture2D map) {
 
 	DrawPlane({ (float)state.broken_tile.x, 0, (float)state.broken_tile.y }, { 1, 1 }, state.bot.batteries > 0 ? YELLOW : BROWN);
 
-	DrawCube({ 0, 0.5f, 0 }, 2, 1, 3, IsPlayerHome(state) ? GREEN : DARKGREEN);
+	DrawCube({ 0, 0.5f, 0 }, 2, 1, 3, IsPlayerHome(state.bot) ? GREEN : DARKGREEN);
 
 	DrawLine3D({ state.bot.x, 0.5f, state.bot.y }, { state.bot.x + sinf(state.bot.rot), 0.5f, state.bot.y + cosf(state.bot.rot) }, RED);
 
-	DrawSphere({ state.bot.x, 0.5f, state.bot.y }, 0.5f, state.bot.alive ? (IsPlayerHome(state) ? DARKGREEN : GREEN) : GRAY);
+	DrawSphere({ state.bot.x, 0.5f, state.bot.y }, 0.5f, state.bot.alive ? (IsPlayerHome(state.bot) ? DARKGREEN : GREEN) : GRAY);
 
 	for (int i = 0; i < state.gooberc; i++) {
 		const Goober &goober = state.goobers[i];

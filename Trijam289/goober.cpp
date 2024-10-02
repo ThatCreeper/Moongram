@@ -26,7 +26,7 @@ static void ProcessGooberMovement(GameState &state, Goober &goober) {
 	float pyd = state.bot.y - goober.y;
 	float pd = sqrtf(pxd * pxd + pyd * pyd);
 	float hd = sqrtf(goober.x * goober.x + goober.y * goober.y);
-	if (goober.angry_time < 0 || !state.bot.alive || IsPlayerHome(state) || DoesGooberPlayerVisionIntersectHomeBase(state, goober) || pd > 7 || (hd * 2 < pd && hd > 3.f)) {
+	if (goober.angry_time < 0 || !state.bot.alive || IsPlayerHome(state.bot) || DoesGooberPlayerVisionIntersectHomeBase(state, goober) || pd > 7 || (hd * 2 < pd && hd > 3.f)) {
 		goober.x -= (goober.x / hd) * GetFrameTime() * 0.3f;
 		goober.y -= (goober.y / hd) * GetFrameTime() * 0.3f;
 	}

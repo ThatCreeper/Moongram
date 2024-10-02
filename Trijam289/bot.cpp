@@ -1,28 +1,33 @@
 #include "global.h"
 
 void MoveBotAndDrainLife(BotState &bot) {
-	if (bot.alive) {
-		if (IsKeyDown(KEY_W)) {
-			if (bot.rep_prog > 0) {
-				bot.rep_prog = 0;
-				StopSound(SND_PROGRESS1);
-			}
-			float dec = 0.0005f;
-			if (IsKeyDown(KEY_A)) {
-				bot.rot += 2.f * GetFrameTime();
-				dec = 0.0007f;
-			}
-			if (IsKeyDown(KEY_D)) {
-				bot.rot -= 2.f * GetFrameTime();
-				dec = 0.0007f;
-			}
-			bot.x += sinf(bot.rot) * GetFrameTime() * 5.f;
-			bot.y += cosf(bot.rot) * GetFrameTime() * 5.f;
-			bot.life -= dec;
-		}
+	if (!bot.alive)
+		return;
 
-		bot.life -= 0.0003f;
+	float dec = 0.0005f;
+	bool forward = IsKeyDown(KEY_W);
+	bool can_rotate = forward || IsPlayerHome(bot);
+
+	if (can_rotate && IsKeyDown(KEY_A)) {
+		bot.rot += 2.f * GetFrameTime();
+		dec = 0.0007f;
 	}
+	if (can_rotate && IsKeyDown(KEY_D)) {
+		bot.rot -= 2.f * GetFrameTime();
+		dec = 0.0007f;
+	}
+
+	if (forward) {
+		if (bot.rep_prog > 0) {
+			bot.rep_prog = 0;
+			StopSound(SND_PROGRESS1);
+		}
+		bot.x += sinf(bot.rot) * GetFrameTime() * 5.f;
+		bot.y += cosf(bot.rot) * GetFrameTime() * 5.f;
+		bot.life -= dec;
+	}
+
+	bot.life -= 0.0003f;
 }
 
 void ClipBot(BotState &bot) {
@@ -36,20 +41,20 @@ void ClipBot(BotState &bot) {
 		bot.y = GAME_SIZE;
 }
 
-static void UpdateHomeTimers(GameState &state) {
-	if (IsPlayerHome(state)) {
-		state.bot.bat_prog += GetFrameTime();
-		state.bot.life += 0.0008f;
+static void UpdateHomeTimers(BotState &bot) {
+	if (IsPlayerHome(bot)) {
+		bot.bat_prog += GetFrameTime();
+		bot.life += 0.0008f;
 		PlaySound(SND_PROGRESS);
 	}
 	else {
-		state.bot.bat_prog = 0;
+		bot.bat_prog = 0;
 		StopSound(SND_PROGRESS);
 	}
 
-	if (state.bot.bat_prog >= BAT_DUR) {
-		state.bot.bat_prog = 0;
-		state.bot.batteries++;
+	if (bot.bat_prog >= BAT_DUR) {
+		bot.bat_prog = 0;
+		bot.batteries++;
 		StopSound(SND_PROGRESS);
 		PlaySound(SND_REPAIR);
 	}
@@ -103,7 +108,7 @@ static void UpdateRespawnTimers(GameState &state) {
 void UpdateTimers(GameState &state) {
 	state.popup.bat_err = false;
 	if (state.bot.alive) {
-		UpdateHomeTimers(state);
+		UpdateHomeTimers(state.bot);
 		UpdateBrokenTileTimers(state);
 	}
 	else {
