@@ -1,5 +1,19 @@
 #include "global.h"
 
+static void DisplayRespawnMessage(const GameState &state) {
+	DrawRectangle(0, 0, 800, 600, Fade(WHITE, 0.4f));
+
+	const char *t = GetDeathMessage(state.bot.death_cause);
+	int w = MeasureText(t, 50);
+	DrawText(t, (MAP_WIDTH - w) / 2, (MAP_HEIGHT) / 2 - 50, 50, RED);
+
+	t = TextFormat("It's not over yet! Respawning in %0.1f seconds", 3.f - state.bot.respawn_timer);
+	w = MeasureText(t, 30);
+	DrawText(t, (MAP_WIDTH - w) / 2, (MAP_HEIGHT) / 2, 30, RED);
+
+	DrawText(TextFormat("SCORE %d", state.rep_tiles), 15, 15, 20, BLACK);
+}
+
 void RenderMap(const GameState &state, RenderTexture2D map) {
 	BeginTextureMode(map);
 
@@ -93,13 +107,7 @@ void RenderMap(const GameState &state, RenderTexture2D map) {
 	}
 
 	if (!state.bot.alive) {
-		DrawRectangle(0, 0, 800, 600, Fade(BLACK, 0.4f));
-		const char *t = "Summoning a new robot...";
-		int w = MeasureText(t, 50);
-		DrawText(t, (MAP_WIDTH - w) / 2, (MAP_HEIGHT) / 2 - 50, 50, RED);
-		t = TextFormat("Please wait %0.1f seconds", 3.f - state.bot.respawn_timer);
-		w = MeasureText(t, 50);
-		DrawText(t, (MAP_WIDTH - w) / 2, (MAP_HEIGHT) / 2, 50, RED);
+		DisplayRespawnMessage(state);
 	}
 
 	EndTextureMode();

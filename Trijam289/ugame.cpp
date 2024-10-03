@@ -18,7 +18,7 @@ bool UpdatedRunGame() {
 		MoveBotAndDrainLife(state.bot);
 
 		if (state.bot.alive && state.bot.life <= 0) {
-			state.bot.alive = false;
+			KillBot(state.bot, DC_BATTERY);
 			PlaySound(SND_DIE);
 		}
 

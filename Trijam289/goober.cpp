@@ -38,7 +38,7 @@ static void ProcessGooberMovement(GameState &state, Goober &goober) {
 	}
 
 	if (pd < 0.7f) {
-		state.bot.alive = false;
+		KillBot(state.bot, DC_MAULED);
 		PlayExplosion(state, state.bot.x, state.bot.y);
 		SpawnGoober(goober);
 		PlaySound(SND_DIE);

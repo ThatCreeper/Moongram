@@ -36,3 +36,15 @@ bool DisplayDeath(const GameState &state) {
 
 	return false;
 }
+
+const char *GetDeathMessage(DeathCause dc) {
+	switch (dc) {
+	case DC_BUG:
+		break;
+	case DC_MAULED:
+		return "Your robot was destroyed.";
+	case DC_BATTERY:
+		return "Your battery ran out.";
+	}
+	return "Your robot died.";
+}

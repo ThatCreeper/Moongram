@@ -105,6 +105,7 @@ static void UpdateRespawnTimers(GameState &state) {
 		state.bot.respawn_timer = 0;
 		state.bot.batteries = 0;
 		state.bot.life = 1;
+		state.bot.death_cause = DC_BUG;
 	}
 }
 
@@ -119,4 +120,9 @@ void UpdateTimers(GameState &state) {
 	}
 
 	state.explosion.rem -= GetFrameTime();
+}
+
+void KillBot(BotState &bot, DeathCause cause) {
+	bot.alive = false;
+	bot.death_cause = cause;
 }
