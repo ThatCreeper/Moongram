@@ -105,15 +105,20 @@ void RenderMap(const GameState &state, RenderTexture2D map) {
 	EndTextureMode();
 }
 
-void RenderScreen(RenderTexture2D map) {
+void RenderScreen(RenderTexture2D map, const BotState &bot) {
 	ClearBackground(GRAY);
 
 	DrawTextureRec(map.texture, { 0, 0, MAP_WIDTH, -MAP_HEIGHT }, { 25, 25 }, WHITE);
 
-	if (IsKeyDown(KEY_W)) {
-		DrawKeybindBar("[W] Forward [A]/[D] Rotate", "");
+	if (gameflags.modified_movement) {
+		DrawKeybindBar("[W]/[S] Move [A]/[D] Rotate", "");
 	}
 	else {
-		DrawKeybindBar("[W] Forward", "");
+		if (IsKeyDown(KEY_W) || IsPlayerHome(bot)) {
+			DrawKeybindBar("[W] Forward [A]/[D] Rotate", "");
+		}
+		else {
+			DrawKeybindBar("[W] Forward", "");
+		}
 	}
 }

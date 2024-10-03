@@ -39,7 +39,7 @@ bool UpdatedRunGame() {
 
 		BeginDrawing();
 
-		RenderScreen(map);
+		RenderScreen(map, state.bot);
 		DoFadeOutAnimation(fadein);
 
 		EndDrawing();
