@@ -35,7 +35,7 @@ struct GameState {
 };
 
 struct GameFlags {
-	bool unused = false;
+	bool modified_movement = false;
 };
 extern GameFlags gameflags;
 

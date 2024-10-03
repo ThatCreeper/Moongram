@@ -10,7 +10,9 @@ static bool updated = false;
 GameFlags gameflags{};
 
 void ProcessFlags(int sel) {
+	gameflags = GameFlags{};
 	updated = sel == 0 ? false : true;
+	gameflags.modified_movement = sel == 2;
 }
 
 bool PickFlags() {
@@ -32,12 +34,12 @@ bool PickFlags() {
 			overflow = BLACK;
 		}
 
-		if (sel > 1) {
+		if (sel > 2) {
 			sel = 0;
 			overflow = BLUE;
 		}
 		else if (sel < 0) {
-			sel = 1;
+			sel = 2;
 			overflow = ORANGE;
 		}
 
@@ -53,7 +55,7 @@ bool PickFlags() {
 		DrawText("Edition of Moongram:", 15, 15, 20, WHITE);
 
 		DrawLine(15, 45, 395, 45, overflow);
-		DrawLine(15, 125, 395, 125, overflow);
+		DrawLine(15, 165, 395, 165, overflow);
 		//DrawLine(15, 165, 395, 165, overflow);
 
 		if (sel == 0) DrawRectangle(15, 50, 380, 30, DARKGRAY);
@@ -66,10 +68,10 @@ bool PickFlags() {
 		if (sel == 1) DrawText("Post-jam game with\n\nbugfixes and updated\n\nmechanics.", 460, 50, 20, WHITE);
 		DrawText("Post-Jam Edition", 25, 95, 20, WHITE);
 
-		//if (sel == 2) DrawRectangle(15, 130, 380, 30, DARKGRAY);
-		//if (sel == 2) DrawRectangleLines(15, 130, 380, 30, WHITE);
-		//if (sel == 2) DrawText("wal\n\n\n\n\nnut", 460, 50, 20, WHITE);
-		//DrawText("ijd wadawd", 25, 135, 20, WHITE);
+		if (sel == 2) DrawRectangle(15, 130, 380, 30, DARKGRAY);
+		if (sel == 2) DrawRectangleLines(15, 130, 380, 30, WHITE);
+		if (sel == 2) DrawText("Temporary movement\n\nplaytest.", 460, 50, 20, WHITE);
+		DrawText("Movement Changes", 25, 135, 20, WHITE);
 
 		DrawKeybindBar("[Up] [Down]", "[Enter] Select");
 
