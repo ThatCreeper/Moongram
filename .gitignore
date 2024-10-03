@@ -362,7 +362,9 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-outhtml/
+outhtml/*.js
+outhtml/*.data
+outhtml/*.wasm
 run/*.dat
 run/*.dll
 run/*.exe
