@@ -26,7 +26,7 @@ static void ProcessGooberMovement(GameState &state, Goober &goober) {
 	float pyd = state.bot.y - goober.y;
 	float pd = sqrtf(pxd * pxd + pyd * pyd);
 	float hd = sqrtf(goober.x * goober.x + goober.y * goober.y);
-	if (goober.angry_time < 0 || !state.bot.alive || IsPlayerHome(state) || DoesGooberPlayerVisionIntersectHomeBase(state, goober) || pd > 7 || (hd * 2 < pd && hd > 3.f)) {
+	if (goober.angry_time < 0 || !state.bot.alive || IsPlayerHome(state.bot) || DoesGooberPlayerVisionIntersectHomeBase(state, goober) || pd > 7 || (hd * 2 < pd && hd > 3.f)) {
 		goober.x -= (goober.x / hd) * GetFrameTime() * 0.3f;
 		goober.y -= (goober.y / hd) * GetFrameTime() * 0.3f;
 	}
@@ -51,6 +51,22 @@ static void ProcessGooberMovement(GameState &state, Goober &goober) {
 	}
 }
 
+void SpawnGoober(Goober &goober) {
+	int srad = GAME_SIZE * 1.25;
+
+	goober.dead = true;
+	goober.o_x = goober.x;
+	goober.o_y = goober.y;
+	goober.anim_time = 0;
+	goober.x = GetRandomValue(-srad, srad);
+	goober.y = GetRandomValue(-srad, srad);
+	goober.angry_time = 0;
+
+	if (goober.x * goober.x + goober.y * goober.y < 15) {
+		SpawnGoober(goober);
+	}
+}
+
 bool UpdateGoobers(GameState &state) {
 	bool wasdanger = state.popup.danger;
 	state.popup.danger = false;
@@ -59,6 +75,17 @@ bool UpdateGoobers(GameState &state) {
 
 	for (int i = 0; i < state.gooberc; i++) {
 		Goober &goober = state.goobers[i];
+
+		if (goober.dead) {
+			goober.anim_time += GetFrameTime();
+
+			if (goober.anim_time >= GOOBER_TRANSITION) {
+				goober.dead = false;
+				goober.anim_time = 0;
+			}
+
+			continue;
+		}
 
 		ProcessGooberAnger(state, goober);
 

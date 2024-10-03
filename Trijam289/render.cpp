@@ -18,15 +18,27 @@ void RenderMap(const GameState &state, RenderTexture2D map) {
 
 	DrawPlane({ (float)state.broken_tile.x, 0, (float)state.broken_tile.y }, { 1, 1 }, state.bot.batteries > 0 ? YELLOW : BROWN);
 
-	DrawCube({ 0, 0.5f, 0 }, 2, 1, 3, IsPlayerHome(state) ? GREEN : DARKGREEN);
+	DrawCube({ 0, 0.5f, 0 }, 2, 1, 3, IsPlayerHome(state.bot) ? GREEN : DARKGREEN);
 
 	DrawLine3D({ state.bot.x, 0.5f, state.bot.y }, { state.bot.x + sinf(state.bot.rot), 0.5f, state.bot.y + cosf(state.bot.rot) }, RED);
 
-	DrawSphere({ state.bot.x, 0.5f, state.bot.y }, 0.5f, state.bot.alive ? (IsPlayerHome(state) ? DARKGREEN : GREEN) : GRAY);
+	DrawSphere({ state.bot.x, 0.5f, state.bot.y }, 0.5f, state.bot.alive ? (IsPlayerHome(state.bot) ? DARKGREEN : GREEN) : GRAY);
 
 	for (int i = 0; i < state.gooberc; i++) {
 		const Goober &goober = state.goobers[i];
-		DrawSphere({ goober.x, 0.5f, goober.y }, 0.4f, goober.angry_time > 0 ? RED : DARKGRAY);
+		// Animate from old to new, kinda
+		if (goober.dead) {
+			float x = SInterp(goober.o_x, goober.x, goober.anim_time, GOOBER_TRANSITION);
+			float y = SInterp(goober.o_y, goober.y, goober.anim_time, GOOBER_TRANSITION);
+			float mx = sin(goober.anim_time * 2.3f);
+			float my = sin(goober.anim_time * 2.5f + 0.3f);
+			float mz = sin(goober.anim_time * 2.1f + 0.2f);
+
+			DrawSphere({ x + mx, 0.5f + my, y + mz }, 0.1f, Fade(DARKGRAY, 0.3f));
+		}
+		else {
+			DrawSphere({ goober.x, 0.5f, goober.y }, 0.4f, goober.angry_time > 0 ? RED : DARKGRAY);
+		}
 	}
 
 	if (state.explosion.rem > 0) {

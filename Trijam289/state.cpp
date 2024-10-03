@@ -1,23 +1,11 @@
 #include "global.h"
 
-bool IsPlayerHome(const GameState &state) {
-	return CheckCollisionRecs({ -1, -1.5f, 2, 3 }, { state.bot.x - 0.5f, state.bot.y - 0.5f, 1, 1 });
+bool IsPlayerHome(const BotState &bot) {
+	return CheckCollisionRecs({ -1, -1.5f, 2, 3 }, { bot.x - 0.5f, bot.y - 0.5f, 1, 1 });
 }
 
 bool IsGooberHome(const Goober &goober) {
 	return CheckCollisionRecs({ -1, -1.5f, 2, 3 }, { goober.x - 0.4f, goober.y - 0.4f, 0.8f, 0.8f });
-}
-
-void SpawnGoober(Goober &goober) {
-	int srad = GAME_SIZE * 1.25;
-
-	goober.x = GetRandomValue(-srad, srad);
-	goober.y = GetRandomValue(-srad, srad);
-	goober.angry_time = 0;
-
-	if (goober.x * goober.x + goober.y * goober.y < 4) {
-		SpawnGoober(goober);
-	}
 }
 
 void ChooseBrokenTile(GameState &state) {

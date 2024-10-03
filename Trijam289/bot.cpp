@@ -4,38 +4,29 @@ void MoveBotAndDrainLife(BotState &bot) {
 	if (!bot.alive)
 		return;
 
+	float dec = 0.0005f;
 	bool forward = IsKeyDown(KEY_W);
 	bool backward = IsKeyDown(KEY_S);
+	bool moving = forward ^ backward;
+	bool can_rotate = moving || IsPlayerHome(bot);
+	float mult = backward ? -0.4f : 1;
 
-	if (forward ^ backward) {
-		float dec = 0.0005f;
-		float mult = backward ? -0.4f : 1;
+	if (can_rotate && IsKeyDown(KEY_A)) {
+		bot.rot += 2.f * GetFrameTime();
+		dec = 0.0007f * mult;
+	}
+	if (can_rotate && IsKeyDown(KEY_D)) {
+		bot.rot -= 2.f * GetFrameTime();
+		dec = 0.0007f * mult;
+	}
+
+	if (moving) {
 		if (bot.rep_prog > 0) {
 			bot.rep_prog = 0;
 			StopSound(SND_PROGRESS1);
 		}
-		if (IsKeyDown(KEY_A)) {
-			bot.rot += 2.f * GetFrameTime() * mult;
-			dec = 0.0007f;
-		}
-		if (IsKeyDown(KEY_D)) {
-			bot.rot -= 2.f * GetFrameTime() * mult;
-			dec = 0.0007f;
-		}
 		bot.x += sinf(bot.rot) * GetFrameTime() * 5.f * mult;
 		bot.y += cosf(bot.rot) * GetFrameTime() * 5.f * mult;
-		bot.life -= dec;
-	}
-	else {
-		float dec = 0;
-		if (IsKeyDown(KEY_A)) {
-			bot.rot += 2.f * GetFrameTime();
-			dec = 0.0004f;
-		}
-		if (IsKeyDown(KEY_D)) {
-			bot.rot -= 2.f * GetFrameTime();
-			dec = 0.0004f;
-		}
 		bot.life -= dec;
 	}
 
@@ -53,20 +44,20 @@ void ClipBot(BotState &bot) {
 		bot.y = GAME_SIZE;
 }
 
-static void UpdateHomeTimers(GameState &state) {
-	if (IsPlayerHome(state)) {
-		state.bot.bat_prog += GetFrameTime();
-		state.bot.life += 0.0008f;
+static void UpdateHomeTimers(BotState &bot) {
+	if (IsPlayerHome(bot)) {
+		bot.bat_prog += GetFrameTime();
+		bot.life += 0.0008f;
 		PlaySound(SND_PROGRESS);
 	}
 	else {
-		state.bot.bat_prog = 0;
+		bot.bat_prog = 0;
 		StopSound(SND_PROGRESS);
 	}
 
-	if (state.bot.bat_prog >= BAT_DUR) {
-		state.bot.bat_prog = 0;
-		state.bot.batteries++;
+	if (bot.bat_prog >= BAT_DUR) {
+		bot.bat_prog = 0;
+		bot.batteries++;
 		StopSound(SND_PROGRESS);
 		PlaySound(SND_REPAIR);
 	}
@@ -120,7 +111,7 @@ static void UpdateRespawnTimers(GameState &state) {
 void UpdateTimers(GameState &state) {
 	state.popup.bat_err = false;
 	if (state.bot.alive) {
-		UpdateHomeTimers(state);
+		UpdateHomeTimers(state.bot);
 		UpdateBrokenTileTimers(state);
 	}
 	else {

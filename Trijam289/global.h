@@ -6,6 +6,7 @@
 
 #define GOOBER_COUNT 8
 #define GOOBER_INIT_COUNT 3
+#define GOOBER_TRANSITION 2
 
 #define BAT_DUR 2
 #define REP_DUR 3
@@ -19,8 +20,8 @@
 #include "gfx.h"
 #include "helpers.h"
 #include "globstate.h"
+#include "goober.h"
 #include "state.h"
 #include "death.h"
 #include "render.h"
 #include "bot.h"
-#include "goober.h"
