@@ -7,11 +7,18 @@ static void DisplayRespawnMessage(const GameState &state) {
 	int w = MeasureText(t, 50);
 	DrawText(t, (MAP_WIDTH - w) / 2, (MAP_HEIGHT) / 2 - 50, 50, RED);
 
-	t = TextFormat("It's not over yet! Respawning in %0.1f seconds", 3.f - state.bot.respawn_timer);
-	w = MeasureText(t, 30);
-	DrawText(t, (MAP_WIDTH - w) / 2, (MAP_HEIGHT) / 2, 30, RED);
+	const char *t1 = "It's not over yet! Respawning in ";
+	const char *t2 = TextFormat("%0.1f", 3.f - state.bot.respawn_timer);
+	const char *t2proxy = "0.0";
+	const char *t3 = " seconds.";
+	int w1 = MeasureText(t1, 30);
+	int w2 = MeasureText(t2proxy, 30);
+	int w3 = MeasureText(t3, 30);
+	DrawText(t1, (MAP_WIDTH - w1 - w2 - w3) / 2, (MAP_HEIGHT) / 2, 30, RED);
+	DrawText(t2, (MAP_WIDTH - w1 - w2 - w3) / 2 + w1, (MAP_HEIGHT) / 2, 30, RED);
+	DrawText(t3, (MAP_WIDTH - w1 - w2 - w3) / 2 + w1 + w2, (MAP_HEIGHT) / 2, 30, RED);
 
-	DrawText(TextFormat("SCORE %d", state.rep_tiles), 15, 15, 20, BLACK);
+	DrawText(TextFormat("SCORE %d", state.rep_tiles), 15, 15, 20, RED);
 }
 
 void RenderMap(const GameState &state, RenderTexture2D map) {
