@@ -9,7 +9,7 @@ struct Goober {
 	float o_x;
 	float o_y;
 	float anim_time = 0;
-	bool dead = false;
+	bool dead = true;
 };
 
 bool UpdateGoobers(GameState &state);
