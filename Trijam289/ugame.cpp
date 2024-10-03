@@ -16,6 +16,7 @@ bool UpdatedRunGame() {
 
 	while (!WindowShouldClose()) {
 		MoveBotAndDrainLife(state.bot);
+		ClipBot(state.bot);
 
 		if (state.bot.alive && state.bot.life <= 0) {
 			KillBot(state.bot, DC_BATTERY);
