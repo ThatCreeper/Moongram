@@ -67,6 +67,27 @@ void SpawnGoober(Goober &goober) {
 	}
 }
 
+static void ProcessGooberFootprint(Goober &goober) {
+	goober.footprint_timer += GetFrameTime();
+
+	if (goober.footprint_timer < FOOTPRINT_DURATION)
+		return;
+	goober.footprint_timer = 0;
+
+	for (int i = FOOTPRINT_COUNT - 2; i >= 0; i--) {
+		goober.footprints[i + 1] = goober.footprints[i];
+	}
+	Footprint &print = goober.footprints[0];
+	if (goober.angry_time > 0) {
+		print.exists = true;
+		print.x = goober.x;
+		print.y = goober.y;
+	}
+	else {
+		print.exists = false;
+	}
+}
+
 bool UpdateGoobers(GameState &state) {
 	bool wasdanger = state.popup.danger;
 	state.popup.danger = false;
@@ -90,6 +111,8 @@ bool UpdateGoobers(GameState &state) {
 		ProcessGooberAnger(state, goober);
 
 		ProcessGooberMovement(state, goober);
+
+		ProcessGooberFootprint(goober);
 		
 		if (IsGooberHome(goober)) {
 			return true;

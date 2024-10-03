@@ -8,6 +8,9 @@
 #define GOOBER_INIT_COUNT 3
 #define GOOBER_TRANSITION 2
 
+#define FOOTPRINT_COUNT 8
+#define FOOTPRINT_DURATION 0.3f
+
 #define BAT_DUR 2
 #define REP_DUR 3
 #define EXP_DUR 1.5f

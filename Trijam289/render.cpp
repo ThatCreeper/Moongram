@@ -64,6 +64,22 @@ void RenderMap(const GameState &state, RenderTexture2D map) {
 		else {
 			DrawSphere({ goober.x, 0.5f, goober.y }, 0.4f, goober.angry_time > 0 ? RED : DARKGRAY);
 		}
+
+		for (int j = 0; j < FOOTPRINT_COUNT; j++) {
+			if (!goober.footprints[j].exists)
+				continue;
+
+			if (j < FOOTPRINT_COUNT - 1 && goober.footprints[j + 1].exists) {
+				const Footprint &print = goober.footprints[j];
+				const Footprint &nprint = goober.footprints[j + 1];
+				DrawLine3D({ print.x, 0, print.y }, { nprint.x, 0, nprint.y }, RED);
+				DrawLine3D({ print.x, 0, print.y - 0.1f }, { nprint.x, 0, nprint.y - 0.1f }, RED);
+			}
+			else {
+				const Footprint &print = goober.footprints[j];
+				DrawPoint3D({ print.x, 0, print.y }, RED);
+			}
+		}
 	}
 
 	if (state.explosion.rem > 0) {
