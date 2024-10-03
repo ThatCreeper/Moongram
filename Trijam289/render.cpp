@@ -21,6 +21,10 @@ static void DisplayRespawnMessage(const GameState &state) {
 	DrawText(TextFormat("SCORE %d", state.rep_tiles), 15, 15, 20, RED);
 }
 
+static void DrawShadow(float x, float y, float r) {
+	DrawCylinder({ x, 0, y }, r, r, 0.01f, 16, BLACK);
+}
+
 void RenderMap(const GameState &state, RenderTexture2D map) {
 	BeginTextureMode(map);
 
@@ -44,6 +48,7 @@ void RenderMap(const GameState &state, RenderTexture2D map) {
 	DrawLine3D({ state.bot.x, 0.5f, state.bot.y }, { state.bot.x + sinf(state.bot.rot), 0.5f, state.bot.y + cosf(state.bot.rot) }, RED);
 
 	DrawSphere({ state.bot.x, 0.5f, state.bot.y }, 0.5f, state.bot.alive ? (IsPlayerHome(state.bot) ? DARKGREEN : GREEN) : GRAY);
+	DrawShadow(state.bot.x, state.bot.y, 0.5f);
 
 	for (int i = 0; i < state.gooberc; i++) {
 		const Goober &goober = state.goobers[i];
@@ -63,21 +68,29 @@ void RenderMap(const GameState &state, RenderTexture2D map) {
 		}
 		else {
 			DrawSphere({ goober.x, 0.5f, goober.y }, 0.4f, goober.angry_time > 0 ? RED : DARKGRAY);
+			DrawShadow(goober.x, goober.y, 0.4f);
 		}
 
 		for (int j = 0; j < FOOTPRINT_COUNT; j++) {
 			if (!goober.footprints[j].exists)
 				continue;
 
+			float opacity = (float)j;
+			opacity /= FOOTPRINT_COUNT;
+			opacity *= opacity;
+			opacity = 1 - opacity;
+			Color c = Fade(RED, opacity);
+
 			if (j < FOOTPRINT_COUNT - 1 && goober.footprints[j + 1].exists) {
 				const Footprint &print = goober.footprints[j];
 				const Footprint &nprint = goober.footprints[j + 1];
-				DrawLine3D({ print.x, 0, print.y }, { nprint.x, 0, nprint.y }, RED);
-				DrawLine3D({ print.x, 0, print.y - 0.1f }, { nprint.x, 0, nprint.y - 0.1f }, RED);
+				DrawLine3D({ print.x, 0, print.y }, { nprint.x, 0, nprint.y }, c);
+				DrawLine3D({ print.x, 0, print.y - 0.1f }, { nprint.x, 0, nprint.y - 0.1f }, c);
 			}
 			else {
 				const Footprint &print = goober.footprints[j];
-				DrawPoint3D({ print.x, 0, print.y }, RED);
+				DrawPoint3D({ print.x, 0, print.y }, c);
+				DrawPoint3D({ print.x, 0, print.y - 0.1f }, c);
 			}
 		}
 	}
