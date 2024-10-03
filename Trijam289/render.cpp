@@ -105,6 +105,14 @@ void RenderMap(const GameState &state, RenderTexture2D map) {
 
 	EndMode3D();
 
+	if (state.bot.batteries > 0) {
+		Vector2 btPos = GetWorldToScreen({ (float)state.broken_tile.x, 0, (float)state.broken_tile.y }, cam);
+
+		btPos.x = Clamp(btPos.x, 15, MAP_WIDTH - 15 - 15);
+		btPos.y = Clamp(btPos.y, 15, MAP_HEIGHT - 15 - 15);
+
+		DrawRectangle(btPos.x, btPos.y, 15, 15, YELLOW);
+	}
 	if (state.popup.danger && !(state.popup.flashing && state.popup.flash)) {
 		if (state.popup.flashing)
 			PlaySound(SND_MENU);
@@ -114,14 +122,6 @@ void RenderMap(const GameState &state, RenderTexture2D map) {
 		hPos.y = Clamp(hPos.y, 15, MAP_HEIGHT - 15 - 15);
 
 		DrawRectangle(hPos.x, hPos.y, 15, 15, RED);
-	}
-	if (state.bot.batteries > 0) {
-		Vector2 btPos = GetWorldToScreen({ (float)state.broken_tile.x, 0, (float)state.broken_tile.y }, cam);
-
-		btPos.x = Clamp(btPos.x, 15, MAP_WIDTH - 15 - 15);
-		btPos.y = Clamp(btPos.y, 15, MAP_HEIGHT - 15 - 15);
-
-		DrawRectangle(btPos.x, btPos.y, 15, 15, YELLOW);
 	}
 
 	DrawText(TextFormat("SCORE %d", state.rep_tiles), 15, 15, 20, WHITE);
