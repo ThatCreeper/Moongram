@@ -14,33 +14,29 @@ void UpdateBot(GameState &state)
 	bool can_rotate = gameflags.modified_movement || moving || IsPlayerHome(state.bot);
 	float mult = backward ? -0.4f : 1;
 
-	if (can_rotate && IsKeyDown(KEY_A)) {
-		state.bot.rot += 2.f * GetFrameTime();
-		dec = 0.0007f * mult;
+	if (!state.bot.alive) {
+		moving = false;
+		can_rotate = false;
 	}
-	if (can_rotate && IsKeyDown(KEY_D)) {
-		state.bot.rot -= 2.f * GetFrameTime();
+
+	if (can_rotate) {
+		if (IsKeyDown(KEY_A)) {
+			state.bot.rot += 2.f * GetFrameTime();
+		}
+		if (IsKeyDown(KEY_D)) {
+			state.bot.rot -= 2.f * GetFrameTime();
+		}
 		dec = 0.0007f * mult;
 	}
 
 	if (moving) {
-		if (state.bot.rep_prog > 0) {
-			state.bot.rep_prog = 0;
-			StopSound(SND_PROGRESS1);
-		}
 		state.bot.x += sinf(state.bot.rot) * GetFrameTime() * 5.f * mult;
 		state.bot.y += cosf(state.bot.rot) * GetFrameTime() * 5.f * mult;
 		state.bot.life -= dec;
 	}
 
-	if (state.bot.x < -GAME_SIZE)
-		state.bot.x = -GAME_SIZE;
-	if (state.bot.y < -GAME_SIZE)
-		state.bot.y = -GAME_SIZE;
-	if (state.bot.x > GAME_SIZE)
-		state.bot.x = GAME_SIZE;
-	if (state.bot.y > GAME_SIZE)
-		state.bot.y = GAME_SIZE;
+	state.bot.x = Clamp(state.bot.x, -GAME_SIZE, GAME_SIZE);
+	state.bot.y = Clamp(state.bot.y, -GAME_SIZE, GAME_SIZE);
 
 	state.bot.life -= 0.0003f;
 	if (state.bot.alive && state.bot.life <= 0) {
@@ -68,7 +64,8 @@ void UpdateBot(GameState &state)
 			PlaySound(SND_REPAIR);
 		}
 		// +SCORE timer
-		if (IsBotOnBrokenTile(state)) {
+		// Repairs break when moving
+		if (IsBotOnBrokenTile(state) && !moving) {
 			if (state.bot.batteries > 0) {
 				state.bot.rep_prog += GetFrameTime();
 				PlaySound(SND_PROGRESS1);
@@ -100,15 +97,10 @@ void UpdateBot(GameState &state)
 	else {
 		state.bot.respawn_timer += GetFrameTime();
 		state.bot.bat_prog = 0;
+		state.bot.rep_prog = 0;
 
 		if (state.bot.respawn_timer >= 3.f) {
-			state.bot.x = 0;
-			state.bot.y = 0;
-			state.bot.alive = true;
-			state.bot.respawn_timer = 0;
-			state.bot.batteries = 0;
-			state.bot.life = 1;
-			state.bot.death_cause = DC_BUG;
+			state.bot = {};
 		}
 	}
 }
