@@ -13,7 +13,7 @@ bool UpdatedRunGame() {
 
 	PlaySound(SND_START);
 
-	DoFadeInAnimation();
+	DoFadeOutAnimation();
 
 	while (!WindowShouldClose()) {
 		UpdateBot(state);
@@ -31,7 +31,7 @@ bool UpdatedRunGame() {
 		BeginDrawing();
 
 		RenderScreen(map, state.bot);
-		DoFadeOutAnimation(fadein);
+		DoFadeInAnimation(fadein);
 
 		EndDrawing();
 	}

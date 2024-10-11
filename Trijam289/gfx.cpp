@@ -9,7 +9,7 @@ void DrawKeybindBar(const char *left, const char *right, bool bg) {
 	DrawText(right, 800 - 10 - rlen, 600 - 25, 20, WHITE);
 }
 
-void DoFadeInAnimation() {
+void DoFadeOutAnimation() {
 	int top = 0;
 
 	while ((top += 80) <= 800) {
@@ -25,7 +25,7 @@ void DoFadeInAnimation() {
 	}
 }
 
-void DoFadeOutAnimation(int &top) {
+void DoFadeInAnimation(int &top) {
 	if (top < 800) {
 		top += 60;
 		float t = ((float)top) / 800.f;
