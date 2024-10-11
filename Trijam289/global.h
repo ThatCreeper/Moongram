@@ -24,7 +24,7 @@
 #include "helpers.h"
 #include "globstate.h"
 #include "goober.h"
+#include "bot.h"
 #include "state.h"
 #include "death.h"
 #include "render.h"
-#include "bot.h"
