@@ -133,7 +133,7 @@ bool TrijamRunGame() {
 
 	PlaySound(SND_START);
 
-	DoFadeInAnimation();
+	DoFadeOutAnimation();
 
 	while (!WindowShouldClose()) {
 		// Input
@@ -413,7 +413,7 @@ bool TrijamRunGame() {
 
 		DrawKeybindBar("[W] Forward [A]/[D] Rotate", "");
 
-		DoFadeOutAnimation(fadein);
+		DoFadeInAnimation(fadein);
 
 		EndDrawing();
 	}

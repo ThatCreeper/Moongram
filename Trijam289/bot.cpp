@@ -103,4 +103,6 @@ void UpdateBot(GameState &state)
 			state.bot = {};
 		}
 	}
+
+	state.bot.life = Clamp(state.bot.life, 0, 1);
 }

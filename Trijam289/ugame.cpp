@@ -24,7 +24,6 @@ bool UpdatedRunGame() {
 		}
 
 		state.explosion.rem -= GetFrameTime();
-		state.bot.life = Clamp(state.bot.life, 0, 1);
 
 		RenderMap(state, map);
 
