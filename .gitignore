@@ -370,3 +370,4 @@ run/*.dll
 run/*.exe
 run/*.zip
 vcpkg_installed/
+outhtml/*.zip
