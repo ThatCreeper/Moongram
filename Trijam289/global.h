@@ -15,6 +15,8 @@
 #define REP_DUR 3
 #define EXP_DUR 1.5f
 
+#undef NDEBUG
+#include <assert.h>
 #include <raylib.h>
 #include <rlgl.h>
 #include <cmath>
